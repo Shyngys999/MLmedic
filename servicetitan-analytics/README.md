@@ -58,6 +58,19 @@ python -m pipeline.analyze_calls
 python -m pipeline.aggregate_calls
 ```
 
+## Интерактивный доступ (MCP)
+
+Read-only MCP-сервер для вопросов по данным прямо в чате с Claude (воронка,
+тренд, выборки, SELECT к таблицам пайплайна). Установка и подключение —
+[`mcp_server/README.md`](mcp_server/README.md); безопасность —
+[`docs/mcp_security.md`](docs/mcp_security.md). Главное правило: API-приложению в
+ServiceTitan выдавать **только View-scopes (`:r`)**.
+
+```bash
+pip install -e ".[mcp]"
+claude mcp add servicetitan -- python -m mcp_server.server
+```
+
 Все периоды и параметры — в `config.py` (читает из `.env`, разумные дефолты).
 
 ## Структура
@@ -65,7 +78,8 @@ python -m pipeline.aggregate_calls
 ```
 servicetitan/   API-клиент (OAuth2+пагинация) и ресурс-модули (telecom, jpm, crm, accounting, marketing)
 pipeline/       шаги: check_access, build_funnel, revenue_trend, ingest_calls, transcribe, analyze_calls, aggregate_calls
-tests/          юнит-тесты чистой логики (LMDI, YoY-периоды, правило call-lead)
+mcp_server/     read-only MCP для интерактивных вопросов в чате (см. mcp_server/README.md)
+tests/          юнит-тесты чистой логики (LMDI, YoY-периоды, call-lead, SELECT-only guard)
 analysis/       hypotheses.md (backlog гипотез + фреймворк проверки), ноутбуки
 db/             DuckDB + parquet (создаётся при запуске)
 data/recordings аудио звонков (gitignored)
