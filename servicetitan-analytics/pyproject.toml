@@ -1,0 +1,27 @@
+[project]
+name = "servicetitan-analytics"
+version = "0.1.0"
+description = "Revenue-decline analytics for an HVAC/plumbing company on ServiceTitan"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+    "duckdb>=0.10",
+    "pandas>=2.0",
+    "tenacity>=8.2",
+    "anthropic>=0.40",
+]
+
+[project.optional-dependencies]
+# Transcription backends (pick one)
+deepgram = ["deepgram-sdk>=3.2"]
+whisperx = ["whisperx>=3.1"]
+# Stage 5 dashboard
+dashboard = ["streamlit>=1.30"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["servicetitan", "pipeline"]

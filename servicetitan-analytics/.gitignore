@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+db/*.duckdb
+db/*.parquet
+data/recordings/
+data/transcripts/
+*.egg-info/
+.ipynb_checkpoints/
